@@ -29,6 +29,21 @@
         showPage("header", ['page_title'=>"Edit Profile - AlertMe"]);
         showPage("navbar");
         showPage("edit_profile");
+    }elseif (isset($_SESSION['Auth']) and isset($_GET['u']) and $user['ac_status'] == 1) {
+        $profile = getUserByUsername($_GET['u']);
+        if (!$profile) {
+            showPage("header", ['page_title'=>"User Not Found"]);
+            showPage("navbar");
+            showPage("user_not_found");
+            
+        }else {
+            $profile['subscribers'] = getSubscribers($profile['user_id']);
+            $profile['subscribed'] = getSubscribed($profile['user_id']);
+            $profilePost = getPostsById($profile['user_id']);
+            showPage("header", ['page_title'=>$profile['f_name'].' '.$profile['l_name']."'s Profile - AlertMe"]);
+            showPage("navbar");
+            showPage("profile");
+        }
     } elseif (isset($_GET['signup'])) { 
         showPage("header", ['page_title'=>"SignUp - AlertMe"]);
         showPage("signup");

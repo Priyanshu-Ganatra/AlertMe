@@ -7,6 +7,64 @@
         include("assets/pages/$page.php");
     }
 
+    // function for subscribing the user
+    function subscribeUser($user_id){
+        global $db;
+        $current_user = $_SESSION['userdata']['user_id'];
+        $query = "INSERT INTO subscribers_list(subscriber_id,user_id) VALUES($current_user, $user_id)";
+        return mysqli_query($db, $query);
+        
+    }
+
+    // function for checking like status
+    function checkLikeStatus($post_id){
+        global $db;
+        $current_user = $_SESSION['userdata']['user_id'];
+        $query = "SELECT count(*) as row FROM likes WHERE user_id = $current_user AND post_id = $post_id";
+        $run = mysqli_query($db, $query);
+        return mysqli_fetch_assoc($run)['row'];
+    }
+
+    // function for liking the post
+    function like($post_id){
+        global $db;
+        $current_user = $_SESSION['userdata']['user_id'];
+        $query = "INSERT INTO likes(post_id,user_id) VALUES($post_id, $current_user)";
+        return mysqli_query($db, $query);
+    }
+
+    // function for unliking the post
+    function unlike($post_id){
+        global $db;
+        $current_user = $_SESSION['userdata']['user_id'];
+        $query = "DELETE FROM likes WHERE user_id = $current_user AND post_id = $post_id";
+        return mysqli_query($db, $query);
+    }
+
+    // function for unsubscribing the user
+    function unSubscribeUser($user_id){
+        global $db;
+        $current_user = $_SESSION['userdata']['user_id'];
+        $query = "DELETE FROM subscribers_list WHERE subscriber_id = '$current_user' AND user_id = '$user_id'";
+        return mysqli_query($db, $query);
+    }
+
+    // for getting subscribers count
+    function getSubscribers($user_id){
+        global $db;
+        $query = "SELECT * FROM subscribers_list WHERE user_id = '$user_id'";
+        $run = mysqli_query($db, $query);
+        return mysqli_fetch_all($run, true);
+    }
+    
+    // for getting subscribed count
+    function getSubscribed($user_id){
+        global $db;
+        $query = "SELECT * FROM subscribers_list WHERE subscriber_id = '$user_id'";
+        $run = mysqli_query($db, $query);
+        return mysqli_fetch_all($run, true);
+    }
+    
     // function for showing errors
     function showError($field){
         if (isset($_SESSION['error'])) { // for example $_SESSION['error'] can look like: ['msg'=>"Age isn't given!", 'status'=>false, 'field'=>'age']
@@ -158,8 +216,18 @@
         $query = "SELECT * FROM users WHERE user_id = '$user_id'";
         $run = mysqli_query($db, $query);
         return mysqli_fetch_assoc($run);
-    }    
-
+    }  
+    
+    // for getting the userdata by username
+    function getUserByUsername($username){ 
+        global $db;
+        $ary = explode("_", $username);
+        $fname = $ary[0];
+        $lname = $ary[1];
+        $query = "SELECT * FROM users WHERE f_name = '$fname' AND l_name = '$lname'";
+        $run = mysqli_query($db, $query);
+        return mysqli_fetch_assoc($run);
+    }        
     
     // for getting posts
     function getPosts(){ 
@@ -169,6 +237,24 @@
         $run = mysqli_query($db, $query);
         return mysqli_fetch_all($run, true);
     }  
+
+    // for getting posts by user id
+    function getPostsById($user_id){ 
+        global $db;
+        $city = $_SESSION['userdata']['city'];
+        $query = "SELECT * FROM posts WHERE user_id = '$user_id' ORDER BY post_id";
+        $run = mysqli_query($db, $query);
+        return mysqli_fetch_all($run, true);
+    }  
+
+    // for checking if a user is subscribed by current user or not
+    function checkSubscribeStatus($user_id){
+        global $db;
+        $current_user = $_SESSION['userdata']['user_id'];
+        $query = "SELECT count(*) as row FROM subscribers_list WHERE subscriber_id= $current_user AND user_id = $user_id";
+        $run = mysqli_query($db, $query);
+        return mysqli_fetch_assoc($run)['row'];
+    }
     
     // for adding the user's data to the database
     function createUser($data){

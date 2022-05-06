@@ -24,7 +24,7 @@
 					<div class="d-flex">
 						<img src="assets/images/profiles/<?=$post['pfp']?>" alt="avatar" class="rounded-circle me-2" style="width: 38px; height: 38px; object-fit: cover" />
 						<div>
-						<p class="m-0 fw-bold"><?=$post['f_name'].' '.$post['l_name']?></p>
+						<a href="?u=<?=$post['f_name'].'_'.$post['l_name']?>" class="text-decoration-none cursor-pointer text-dark"><p class="m-0 fw-bold"><?=$post['f_name'].' '.$post['l_name']?></p></a> 
 						<span class="text-muted fs-7"><?=$post['posted_on']?> | <?=$post['post_location']?></span>
 						</div>
 					</div>
@@ -99,7 +99,45 @@
 							<hr />
 							<!-- real,fake, share comment-->
 							<div class="d-flex justify-content-around">
-							<!-- real icon -->
+							<!-- real icon -->	
+							<?php
+								if (checkLikeStatus($post['post_id'])) {
+									?>
+									<div class="
+										unlike_btn
+										dropdown-item
+										rounded
+										d-flex
+										justify-content-center
+										align-items-center
+										cursor-pointer
+										text-muted
+										p-1
+										" data-post-id="<?=$post['post_id']?>">
+										<i class="bi bi-hand-thumbs-up-fill me-3 unlike_icon"></i>
+									<p class="m-0 unlike_text">Liked</p>
+									</div>
+									<?php
+								}else {
+									?>
+									<div class="
+										like_btn
+										dropdown-item
+										rounded
+										d-flex
+										justify-content-center
+										align-items-center
+										cursor-pointer
+										text-muted
+										p-1
+										" data-post-id="<?=$post['post_id']?>">
+										<i class="bi bi-hand-thumbs-up me-3 like_icon"></i>
+									<p class="m-0 like_text">Like</p>
+									</div>
+									<?php
+								}
+							?>
+							<!-- fake icon -->
 							<div class="
 									dropdown-item
 									rounded
@@ -110,21 +148,7 @@
 									text-muted
 									p-1
 								">
-								<i class="fas fa-thumbs-up me-3"></i>
-								<p class="m-0">Real</p>
-							</div>
-							<!-- real icon -->
-							<div class="
-									dropdown-item
-									rounded
-									d-flex
-									justify-content-center
-									align-items-center
-									cursor-pointer
-									text-muted
-									p-1
-								">
-								<i class="fa-solid fa-thumbs-down me-3"></i>
+								<i class="bi bi-hand-thumbs-down me-3"></i>
 								<p class="m-0">Fake</p>
 							</div>
 							<!-- real icon -->

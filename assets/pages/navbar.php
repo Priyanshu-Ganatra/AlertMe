@@ -110,7 +110,7 @@ global $user;
             <!-- menus -->
             <div class="col d-flex align-items-center justify-content-end">
                 <!-- avatar -->
-                <a href="?editprofile" style="text-decoration: none;">
+                <a href="?u=<?=$user['f_name']?>_<?=$user['l_name']?>" class="text-decoration-none text-dark">
                     <div class="d-none d-xl-flex align-items-center justify-content-end cursor-pointer me-2 px-2 py-1 rounded-pill user ">
 
                         <!-- avatar img -->

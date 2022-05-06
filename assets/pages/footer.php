@@ -81,10 +81,9 @@
 <!-- this is for show and hide password -->
 <script src="assets/js/showPassword.js"></script>
 
-
-<script src="assets/js/custom.js"></script>
-
 <!-- jQuery -->
-<script src="assets/js/jQuery.js?v=<?=time()?>"></script>
+<script src="assets/js/jQuery.js"></script>
+
+<script src="assets/js/custom.js?v=<?=time()?>"></script>
 
 </html>

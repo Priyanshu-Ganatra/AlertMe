@@ -77,11 +77,11 @@ $('.like_btn').click(function() {
         dataType: 'json',
         data: { post_id: post_id_v },
         success: function(response) {
-            console.log(response)
+
             if (response['status']) {
                 $(button).attr('disabled', false)
-                $(button).attr('class', 'bi bi-hand-thumbs-up-fill me-3 unlike_btn')
-                button = null
+                $(button).hide()
+                $(button).siblings('.unlike_btn').show()
             } else {
                 $(button).attr('disabled', false)
                 alert('Something went wrong')
@@ -102,11 +102,11 @@ $('.unlike_btn').click(function() {
         dataType: 'json',
         data: { post_id: post_id_v },
         success: function(response) {
-            console.log(response)
+
             if (response['status']) {
                 $(button).attr('disabled', false)
-                $(button).attr('class', 'bi bi-hand-thumbs-up me-3 like_btn')
-                button = null
+                $(button).hide()
+                $(button).siblings('.like_btn').show()
             } else {
                 $(button).attr('disabled', false)
                 alert('Something went wrong')

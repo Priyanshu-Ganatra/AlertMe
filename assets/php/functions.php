@@ -33,6 +33,14 @@
         return mysqli_query($db, $query);
     }
 
+    // functions for getting likes count
+    function getLikes($post_id){
+        global $db;
+        $query = "SELECT * FROM likes WHERE post_id = $post_id";
+        $run = mysqli_query($db, $query);
+        return mysqli_fetch_all($run, true);        
+    }
+
     // function for unliking the post
     function unlike($post_id){
         global $db;

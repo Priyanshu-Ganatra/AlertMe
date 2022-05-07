@@ -142,7 +142,7 @@ global $profilePost;
                 <div class="p-1">
                   <img src="assets/images/profiles/<?= $profile['pfp'] ?>" alt="avatar" class="rounded-circle me-2" style="width: 38px; height: 38px; object-fit: cover" />
                 </div>
-                <input type="text" class="form-control rounded-pill border-1 bg-gray cursor-pointer" disabled placeholder="What news have you got, <?= $profile['f_name'] ?>?" data-bs-toggle="modal" data-bs-target="#modalForPost" />
+                <input type="text" class="form-control rounded-pill border-1 bg-gray cursor-pointer" disabled placeholder="What news have you got, <?= $profile['f_name'] ?>?" data-bs-toggle="modal" data-bs-target="#addpost" />
               </div>
               <!-- create modal -->
               <div class="modal fade" id="modalForPost" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
@@ -215,7 +215,6 @@ global $profilePost;
                   </div>
                 </div>
               </div>
-
             </div>
             <hr />
             <!-- actions -->
@@ -227,7 +226,7 @@ global $profilePost;
                           d-flex
                           align-items-center
                           justify-content-center
-                        " data-bs-toggle="modal" data-bs-target="#modalForPost" type="button">
+                        " data-bs-toggle="modal" data-bs-target="#addpost" type="button">
                 <i class="fas fa-video me-2 text-danger"></i>
                 <p class="m-0 text-muted"> Video</p>
               </div>
@@ -238,7 +237,7 @@ global $profilePost;
                           d-flex
                           align-items-center
                           justify-content-center
-                        " data-bs-toggle="modal" data-bs-target="#modalForPost" type="button">
+                        " data-bs-toggle="modal" data-bs-target="#addpost" type="button">
                 <i class="fas fa-photo-video me-2 text-success"></i>
                 <p class="m-0 text-muted">Photo/Video</p>
               </div>
@@ -556,97 +555,101 @@ global $profilePost;
 </div>
 <!-- profile  -->
 
-  <!-- subscribers list modal -->
-  <div class="modal fade" id="sub_list" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
-    <div class=" modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <!-- head -->
-        <div class="modal-header align-items-center">
-          <h5 class="text-dark text-center w-100 m-0" id="exampleModalLabel">
-            Subscribers
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <?php
-            foreach ($profile['subscribers'] as $sub) {
-              $sub_user = getUser($sub['subscriber_id']);
-              $sub_btn = '';
-              if (checkSubscribeStatus($sub['subscriber_id'])) {
-                $sub_btn = '<button class="btn rounded btn-outline-primary unsubbtn" data-user-id="'.$sub_user['user_id'].'">
+<!-- subscribers list modal -->
+<div class="modal fade" id="sub_list" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class=" modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- head -->
+      <div class="modal-header align-items-center">
+        <h5 class="text-dark text-center w-100 m-0" id="exampleModalLabel">
+          Subscribers
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?php
+        foreach ($profile['subscribers'] as $sub) {
+          $sub_user = getUser($sub['subscriber_id']);
+          $sub_btn = '';
+          if (checkSubscribeStatus($sub['subscriber_id'])) {
+            $sub_btn = '<button class="btn rounded btn-outline-primary unsubbtn" data-user-id="' . $sub_user['user_id'] . '">
                 <i class="bi bi-check-circle-fill me-3"></i>Unsubscribe';
-              }elseif ($user['user_id'] == $sub['subscriber_id']) {
-                $sub_btn = '';
-              } else {
-                $sub_btn = '<button class="btn rounded btn-outline-primary subbtn" data-user-id="'.$sub_user['user_id'].'">
+          } elseif ($user['user_id'] == $sub['subscriber_id']) {
+            $sub_btn = '';
+          } else {
+            $sub_btn = '<button class="btn rounded btn-outline-primary subbtn" data-user-id="' . $sub_user['user_id'] . '">
                 <i class="bi bi-person-plus-fill me-3"></i>Subscribe';
-              }
-              ?>
-              <div class="d-flex justify-content-between">
-                    <div class="d-flex align-items-center p-2">
-                        <div><img src="assets/images/profiles/<?=$sub_user['pfp']?>" alt="" height="40" width="40" class="rounded-circle border">
-                        </div>
-                        <div>&nbsp;&nbsp;</div>
-                        <div class="d-flex flex-column justify-content-center">
-                            <a href='?u=<?=$sub_user['f_name']?>_<?=$sub_user['l_name']?>' class="text-decoration-none text-dark"><h6 style="margin: 0px;font-size: small;"><?=$sub_user['f_name']?> <?=$sub_user['l_name']?></h6></a>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center">
-                      <?=$sub_btn?>              
-                    </div>
-                </div>
-              <?php
-            }
-          ?>
-        </div>
+          }
+        ?>
+          <div class="d-flex justify-content-between">
+            <div class="d-flex align-items-center p-2">
+              <div><img src="assets/images/profiles/<?= $sub_user['pfp'] ?>" alt="" height="40" width="40" class="rounded-circle border">
+              </div>
+              <div>&nbsp;&nbsp;</div>
+              <div class="d-flex flex-column justify-content-center">
+                <a href='?u=<?= $sub_user['f_name'] ?>_<?= $sub_user['l_name'] ?>' class="text-decoration-none text-dark">
+                  <h6 style="margin: 0px;font-size: small;"><?= $sub_user['f_name'] ?> <?= $sub_user['l_name'] ?></h6>
+                </a>
+              </div>
+            </div>
+            <div class="d-flex align-items-center">
+              <?= $sub_btn ?>
+            </div>
+          </div>
+        <?php
+        }
+        ?>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- subscribed users list modal -->
-  <div class="modal fade" id="subbed_list" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
-    <div class=" modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <!-- head -->
-        <div class="modal-header align-items-center">
-          <h5 class="text-dark text-center w-100 m-0" id="exampleModalLabel">
-            This user has subscribed these accounts
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <?php
-            foreach ($profile['subscribed'] as $sub) {
-              $sub_user = getUser($sub['user_id']);
-              $sub_btn = '';
-              if (checkSubscribeStatus($sub['user_id'])) {
-                $sub_btn = '<button class="btn rounded btn-outline-primary unsubbtn" data-user-id="'.$sub_user['user_id'].'">
+<!-- subscribed users list modal -->
+<div class="modal fade" id="subbed_list" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class=" modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- head -->
+      <div class="modal-header align-items-center">
+        <h5 class="text-dark text-center w-100 m-0" id="exampleModalLabel">
+          This user has subscribed these accounts
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?php
+        foreach ($profile['subscribed'] as $sub) {
+          $sub_user = getUser($sub['user_id']);
+          $sub_btn = '';
+          if (checkSubscribeStatus($sub['user_id'])) {
+            $sub_btn = '<button class="btn rounded btn-outline-primary unsubbtn" data-user-id="' . $sub_user['user_id'] . '">
                 <i class="bi bi-check-circle-fill me-3"></i>Unsubscribe';
-              }elseif ($user['user_id'] == $sub['user_id']) {
-                $sub_btn = '';
-              } else {
-                $sub_btn = '<button class="btn rounded btn-outline-primary subbtn" data-user-id="'.$sub_user['user_id'].'">
+          } elseif ($user['user_id'] == $sub['user_id']) {
+            $sub_btn = '';
+          } else {
+            $sub_btn = '<button class="btn rounded btn-outline-primary subbtn" data-user-id="' . $sub_user['user_id'] . '">
                 <i class="bi bi-person-plus-fill me-3"></i>Subscribe';
-              }
-              ?>
-              <div class="d-flex justify-content-between">
-                    <div class="d-flex align-items-center p-2">
-                        <div><img src="assets/images/profiles/<?=$sub_user['pfp']?>" alt="" height="40" width="40" class="rounded-circle border">
-                        </div>
-                        <div>&nbsp;&nbsp;</div>
-                        <div class="d-flex flex-column justify-content-center">
-                            <a href='?u=<?=$sub_user['f_name']?>_<?=$sub_user['l_name']?>' class="text-decoration-none text-dark"><h6 style="margin: 0px;font-size: small;"><?=$sub_user['f_name']?> <?=$sub_user['l_name']?></h6></a>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center">
-                      <?=$sub_btn?>              
-                    </div>
-                </div>
-              <?php
-            }
-          ?>
-        </div>
+          }
+        ?>
+          <div class="d-flex justify-content-between">
+            <div class="d-flex align-items-center p-2">
+              <div><img src="assets/images/profiles/<?= $sub_user['pfp'] ?>" alt="" height="40" width="40" class="rounded-circle border">
+              </div>
+              <div>&nbsp;&nbsp;</div>
+              <div class="d-flex flex-column justify-content-center">
+                <a href='?u=<?= $sub_user['f_name'] ?>_<?= $sub_user['l_name'] ?>' class="text-decoration-none text-dark">
+                  <h6 style="margin: 0px;font-size: small;"><?= $sub_user['f_name'] ?> <?= $sub_user['l_name'] ?></h6>
+                </a>
+              </div>
+            </div>
+            <div class="d-flex align-items-center">
+              <?= $sub_btn ?>
+            </div>
+          </div>
+        <?php
+        }
+        ?>
       </div>
     </div>
-  </div>  
+  </div>
+</div>
 </div>

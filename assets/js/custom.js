@@ -16,6 +16,7 @@ function preview() {
     }
 }
 
+
 //for subscribing a user
 $('.subbtn').click(function() {
     var user_id_v = $(this).data('userId');
@@ -67,8 +68,6 @@ $('.unsubbtn').click(function() {
 // for liking the posts
 $('.like_btn').click(function() {
     var post_id_v = $(this).data('postId');
-    var like_icon = $('.like_icon')
-    var like_text = $('.like_text')
     var button = this;
     $(button).attr('disabled', true)
 
@@ -81,9 +80,7 @@ $('.like_btn').click(function() {
             console.log(response)
             if (response['status']) {
                 $(button).attr('disabled', false)
-                $(button).attr('class', 'unlike_btn dropdown-item rounded d-flex justify-content-center align-items-center cursor-pointer text-muted p-1')
-                $(like_icon).attr('class', 'bi bi-hand-thumbs-up-fill me-3 unlike_icon')
-                $(like_text).text('Liked')
+                $(button).attr('class', 'bi bi-hand-thumbs-up-fill me-3 unlike_btn')
                 button = null
             } else {
                 $(button).attr('disabled', false)
@@ -96,8 +93,6 @@ $('.like_btn').click(function() {
 // for liking the posts
 $('.unlike_btn').click(function() {
     var post_id_v = $(this).data('postId');
-    var unlike_icon = $('.unlike_icon')
-    var unlike_text = $('.unlike_text')
     var button = this;
     $(button).attr('disabled', true)
 
@@ -110,9 +105,7 @@ $('.unlike_btn').click(function() {
             console.log(response)
             if (response['status']) {
                 $(button).attr('disabled', false)
-                $(button).attr('class', 'like_btn dropdown-item rounded d-flex justify-content-center align-items-center cursor-pointer text-muted p-1')
-                $(unlike_icon).attr('class', 'bi bi-hand-thumbs-up me-3 like_icon')
-                $(unlike_text).text('Like')
+                $(button).attr('class', 'bi bi-hand-thumbs-up me-3 like_btn')
                 button = null
             } else {
                 $(button).attr('disabled', false)

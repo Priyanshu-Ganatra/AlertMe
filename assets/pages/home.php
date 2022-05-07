@@ -100,43 +100,19 @@
 							<!-- real,fake, share comment-->
 							<div class="d-flex justify-content-around">
 							<!-- real icon -->	
+							<span>
 							<?php
 								if (checkLikeStatus($post['post_id'])) {
-									?>
-									<div class="
-										unlike_btn
-										dropdown-item
-										rounded
-										d-flex
-										justify-content-center
-										align-items-center
-										cursor-pointer
-										text-muted
-										p-1
-										" data-post-id="<?=$post['post_id']?>">
-										<i class="bi bi-hand-thumbs-up-fill me-3 unlike_icon"></i>
-									<p class="m-0 unlike_text">Liked</p>
-									</div>
-									<?php
+									$like_btn_display = 'none';
+									$unlike_btn_display = '';
 								}else {
-									?>
-									<div class="
-										like_btn
-										dropdown-item
-										rounded
-										d-flex
-										justify-content-center
-										align-items-center
-										cursor-pointer
-										text-muted
-										p-1
-										" data-post-id="<?=$post['post_id']?>">
-										<i class="bi bi-hand-thumbs-up me-3 like_icon"></i>
-									<p class="m-0 like_text">Like</p>
-									</div>
-									<?php
+									$like_btn_display = '';
+									$unlike_btn_display = 'none';									
 								}
 							?>
+								<i class="bi bi-hand-thumbs-up-fill me-3 unlike_btn" data-post-id="<?=$post['post_id']?>" style="display:<?=$unlike_btn_display?>"></i>
+								<i class="bi bi-hand-thumbs-up me-3 like_btn" data-post-id="<?=$post['post_id']?>" style="display:<?=$like_btn_display?>"></i>
+							</span>
 							<!-- fake icon -->
 							<div class="
 									dropdown-item

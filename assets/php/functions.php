@@ -24,6 +24,15 @@
         $run = mysqli_query($db, $query);
         return mysqli_fetch_assoc($run)['row'];
     }
+    
+    // function for checking dislike status
+    function checkDislikeStatus($post_id){
+        global $db;
+        $current_user = $_SESSION['userdata']['user_id'];
+        $query = "SELECT count(*) as row FROM dislikes WHERE user_id = $current_user AND post_id = $post_id";
+        $run = mysqli_query($db, $query);
+        return mysqli_fetch_assoc($run)['row'];
+    }
 
     // function for liking the post
     function like($post_id){
@@ -33,10 +42,43 @@
         return mysqli_query($db, $query);
     }
 
+    // function for liking the post
+    function dislike($post_id){
+        global $db;
+        $current_user = $_SESSION['userdata']['user_id'];
+        $query = "INSERT INTO dislikes(post_id,user_id) VALUES($post_id, $current_user)";
+        return mysqli_query($db, $query);
+    }    
+
+    // function for commenting 
+    function addComment($post_id, $comment){
+        global $db;
+        $comment = mysqli_real_escape_string($db, trim($comment));
+        $current_user = $_SESSION['userdata']['user_id'];
+        $query = "INSERT INTO comments(user_id,post_id,comment) VALUES($current_user, $post_id, '$comment')";
+        return mysqli_query($db, $query);
+    }
+
+    // functions for getting comments count
+    function getComments($post_id){
+        global $db;
+        $query = "SELECT * FROM comments WHERE post_id = $post_id";
+        $run = mysqli_query($db, $query);
+        return mysqli_fetch_all($run, true);        
+    }
+
     // functions for getting likes count
     function getLikes($post_id){
         global $db;
         $query = "SELECT * FROM likes WHERE post_id = $post_id";
+        $run = mysqli_query($db, $query);
+        return mysqli_fetch_all($run, true);        
+    }
+    
+    // functions for getting dislikes count
+    function getDislikes($post_id){
+        global $db;
+        $query = "SELECT * FROM dislikes WHERE post_id = $post_id";
         $run = mysqli_query($db, $query);
         return mysqli_fetch_all($run, true);        
     }
@@ -46,6 +88,14 @@
         global $db;
         $current_user = $_SESSION['userdata']['user_id'];
         $query = "DELETE FROM likes WHERE user_id = $current_user AND post_id = $post_id";
+        return mysqli_query($db, $query);
+    }
+    
+    // function for unliking the post
+    function undislike($post_id){
+        global $db;
+        $current_user = $_SESSION['userdata']['user_id'];
+        $query = "DELETE FROM dislikes WHERE user_id = $current_user AND post_id = $post_id";
         return mysqli_query($db, $query);
     }
 
@@ -240,7 +290,8 @@
     // for getting posts
     function getPosts(){ 
         global $db;
-        $city = $_SESSION['userdata']['city'];
+        global $user;
+        $city = $user['city'];
         $query = "SELECT posts.post_id, posts.user_id, posts.images, posts.post_header, posts.posted_on, posts.post_location, posts.real_count, posts.fake_count, posts.share_count, posts.comments_count, users.f_name, users.l_name, users.pfp, users.verified FROM posts JOIN users ON (users.user_id = posts.user_id) WHERE (users.city = '$city' AND posts.post_city = '$city') ORDER BY post_id DESC ;";
         $run = mysqli_query($db, $query);
         return mysqli_fetch_all($run, true);

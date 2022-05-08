@@ -39,7 +39,7 @@ global $profilePost;
               <!-- edit profile button -->
               <div class="d-flex ms-3">
                 <?php
-                if ($_SESSION['userdata']['f_name'] == $profile['f_name'] and $_SESSION['userdata']['l_name'] == $profile['l_name']) {
+                if ($user['f_name'] == $profile['f_name'] and $user['l_name'] == $profile['l_name']) {
                 ?>
                   <div class="d-flex justify-content-center align-items-center">
                     <a href="?editprofile">
@@ -144,106 +144,7 @@ global $profilePost;
                 </div>
                 <input type="text" class="form-control rounded-pill border-1 bg-gray cursor-pointer" disabled placeholder="What news have you got, <?= $profile['f_name'] ?>?" data-bs-toggle="modal" data-bs-target="#addpost" />
               </div>
-              <!-- create modal -->
-              <div class="modal fade" id="modalForPost" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
-                <div class=" modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <!-- head -->
-                    <div class="modal-header align-items-center">
-                      <h5 class="text-dark text-center w-100 m-0" id="exampleModalLabel">
-                        Create Post
-                      </h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <!-- here form start -->
-
-                    <form action="" method="post">
-                      <!-- body -->
-                      <div class="modal-body">
-                        <div class="my-1 p-1">
-                          <div class="d-flex flex-column">
-                            <!-- name -->
-                            <div class="d-flex align-items-center">
-                              <div class="p-2">
-                                <img src="https://source.unsplash.com/collection/happy-people" alt="from fb" class="rounded-circle" style="
-                                            width: 38px;
-                                            height: 38px;
-                                            object-fit: cover;
-                                          " />
-                              </div>
-                              <div>
-                                <p class="m-0 fw-bold">Rohit</p>
-                              </div>
-                            </div>
-                            <!-- text -->
-                            <div>
-                              <textarea cols="30" rows="2" placeholder="heading for your news ..." class="form-control border-1 " required></textarea>
-                            </div>
-
-                            <label class="mt-1">Upload images/videos</label>
-                            <!-- drag and drop -->
-                            <div class="d-flex my-2 py-4 border rounded d-flex-row align-items-center justify-content-center bg-gray">
-
-                              <div class="d-block align-items-center justify-content-center">
-
-
-                                <input type="file" multiple>
-                                <!-- media icon -->
-
-                              </div>
-                            </div>
-                            <!-- location -->
-                            <div>
-                              <div class="form-floating">
-
-                                <input type="text" class="form-control my-3 " id="city" name="dgsh" placeholder="Select City" autocomplete="city" required>
-                                <label name="djkldsl" for="city">Select City</label>
-                              </div>
-
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- end -->
-                      </div>
-                      <!-- footer -->
-                      <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary w-100">
-                          Post
-                        </button>
-                    </form>
-                  </div>
-                </div>
-              </div>
             </div>
-            <hr />
-            <!-- actions -->
-            <div class="d-flex flex-column flex-lg-row mt-3">
-              <!-- a 1 -->
-              <div class="
-                          dropdown-item
-                          rounded
-                          d-flex
-                          align-items-center
-                          justify-content-center
-                        " data-bs-toggle="modal" data-bs-target="#addpost" type="button">
-                <i class="fas fa-video me-2 text-danger"></i>
-                <p class="m-0 text-muted"> Video</p>
-              </div>
-              <!-- a 2 -->
-              <div class="
-                          dropdown-item
-                          rounded
-                          d-flex
-                          align-items-center
-                          justify-content-center
-                        " data-bs-toggle="modal" data-bs-target="#addpost" type="button">
-                <i class="fas fa-photo-video me-2 text-success"></i>
-                <p class="m-0 text-muted">Photo/Video</p>
-              </div>
-
-            </div>
-        </div>
       <?php
           }
       ?>
@@ -251,6 +152,97 @@ global $profilePost;
       <?php
       foreach ($profilePost as $post) {
       ?>
+      <!-- modal for comments -->
+        <div class="modal fade" id="postview<?=$post['post_id']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content">
+
+                    <div class="modal-body d-md-flex p-0">
+
+                      <?php
+									    $hasalpha = false;
+									    $img = $post['images'];
+									    for ($i = 0; $i < strlen($img); $i++) {
+									    	if (ctype_alpha($img[$i])) {
+									    		$hasalpha = true;
+									    		break;
+									    	}
+									    }                      
+                      if ($hasalpha) {
+                        ?>
+                          <!-- this is post image -->
+                          <div class="col-md-8 col-sm-12">
+                              <img src="assets/images/posts/<?=$post['images']?>" style="max-height:90vh" class="w-100 overflow:hidden">
+                          </div>
+                        <?php
+                      }else {
+                        ?>
+                          <div class="col-md-8 col-sm-12 d-flex justify-content-center">
+                              <p class="my-auto"><b>This post doesn't have any image</b></p>
+                          </div>
+                        <?php
+                      }
+                      ?>
+
+                        <!-- right hand section -->
+
+                        <div class="col-md-4 col-sm-12 d-flex flex-column">
+
+                            <div class="d-flex align-items-center p-2 border-bottom">
+                                <!-- user info  -->
+                                <div><img src="assets/images/profiles/<?=$profile['pfp']?>" alt="" height="50" width="50" class="rounded-circle border">
+                                </div>
+
+                                <div class="m-2 d-flex flex-column justify-content-start">
+                                    <h6 style="margin: 0px;"><?=$profile['f_name']?> <?=$profile['l_name']?></h6>
+                                </div>
+
+                                <!-- user info end -->
+                            </div>
+
+
+                            <!-- div for comment section  -->
+                            <div class="flex-fill align-self-stretch overflow-auto" id="comment-section<?=$post['post_id']?>" style="height: 100px;">
+
+                            <?php
+                              $comments = getComments($post['post_id']);
+                              if (count($comments)<1) {
+                                ?>
+                                <p class="p-3 text-center my-2">No comments on this post yet</p>
+                                <?php
+                              }
+                              foreach ($comments as $comment) {
+                                $cuser = getUser($comment['user_id']);
+                                ?>
+                                <!-- the comments -->
+                                <div class="d-flex align-items-center p-2">
+                                    <div><img src="assets/images/profiles/<?=$cuser['pfp']?>" alt="" height="40" width="40" class="rounded-circle border">
+                                    </div>
+
+                                    <div class="m-2 d-flex flex-column justify-content-start align-items-start">
+                                        <h6 style="margin: 0px;"><a href="?u=<?=$cuser['f_name']?>_<?=$cuser['l_name']?>" class="text-decoration-none text-dark text-small text-muted"><?=$cuser['f_name']?> <?=$cuser['l_name']?></a>
+                                        </h6>
+                                        <p style="margin:0px;" class="text-muted"><?=$comment['comment']?></p>
+                                    </div>
+                                </div>
+                                <?php
+                              }
+                            ?>
+                            </div>
+
+                            <!-- div for comment input -->
+                            <div class="input-group p-2 border-top">
+                                <input type="text" class="form-control rounded-0 border-0 comment-input" placeholder="Add a comment here.." aria-label="Recipient's username" aria-describedby="button-addon2">
+                                <button class="btn btn-outline-primary rounded-0 border-0 add-comment" data-cs="comment-section<?=$post['post_id']?>" data-post-id="<?=$post['post_id']?>" type="button" id="button-addon2">Post</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
         <!-- posts -->
         <div class="bg-white p-4 rounded-corner shadow mt-3">
           <!-- author -->
@@ -276,18 +268,8 @@ global $profilePost;
             <!-- edit menu -->
             <ul class="dropdown-menu border-0 shadow" aria-labelledby="post1Menu">
               <?php
-              if ($_SESSION['userdata']['user_id'] == $profile['user_id']) {
+              if ($user['user_id'] == $profile['user_id']) {
               ?>
-                <li class="d-flex align-items-center">
-                  <a class="
-                              dropdown-item
-                              d-flex
-                              justify-content-around
-                              align-items-center
-                              fs-7
-                            " href="#">
-                    Edit Post</a>
-                </li>
                 <li class="d-flex align-items-center">
                   <a class="
                               dropdown-item
@@ -309,7 +291,7 @@ global $profilePost;
                               align-items-center
                               fs-7
                             " href="#">
-                    Report</a>
+                    Report Post</a>
                 </li>
               <?php
               }
@@ -326,12 +308,8 @@ global $profilePost;
           <div class="mt-3">
             <!-- content -->
             <div>
-
-              <!-- carousel of posts images -->
-              <div id="carouselExampleInterval2" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner rounded">
-                  <div class="carousel-item active">
-                    <div class=" position-absolute top-0 end-0 m-1 text-white bg-black p-1 rounded">1/3</div>
+              <!-- post image if any -->
+                <div>
                     <?php
                     $hasalpha = false;
                     $img = $post['images'];
@@ -347,29 +325,8 @@ global $profilePost;
                     <?php
                     }
                     ?>
-
-                  </div>
-                  <!-- <div class="carousel-item">
-                        <div class=" position-absolute top-0 end-0 m-1 text-white bg-black p-1 rounded">2/3</div>
-                        <img src="https://source.unsplash.com/random/13" class="d-block w-100" alt="post2">
-                      </div>
-                      <div class="carousel-item">
-                        <div class="ratio ratio-4x3">
-                          <video class="rounded" controls>
-                            <source src="sample_video.mp4" type="video/mp4">
-                            Your browser does not supports video
-                          </video>
-                        </div> -->
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval2" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval2" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
-              </div>
+
 
               <!-- carousel end -->
 
@@ -379,63 +336,9 @@ global $profilePost;
               <!-- likes -->
               <div class="accordion" id="accordionExample">
                 <div class="accordion-item border-0">
-                  <!-- comment collapse -->
-                  <h2 class="accordion-header" id="headingTwo">
-                    <div class="
-                            accordion-button
-                            collapsed
-                            pointer
-                            d-flex
-                            justify-content-end
-                          " data-bs-toggle="collapse" data-bs-target="#collapsePost1" aria-expanded="false" aria-controls="collapsePost1">
-                      <p class="m-0">2 Comments</p>
-                    </div>
-                  </h2>
                   <hr />
                   <!-- real,fake, share comment-->
                   <div class="d-flex justify-content-around">
-                    <!-- real icon -->
-                    <div class="
-                            dropdown-item
-                            rounded
-                            d-flex
-                            justify-content-center
-                            align-items-center
-                            pointer
-                            text-muted
-                            p-1
-                          ">
-                      <i class="fas fa-thumbs-up me-3"></i>
-                      <p class="m-0">Real</p>
-                    </div>
-                    <!-- real icon -->
-                    <div class="
-                            dropdown-item
-                            rounded
-                            d-flex
-                            justify-content-center
-                            align-items-center
-                            pointer
-                            text-muted
-                            p-1
-                          ">
-                      <i class="fa-solid fa-thumbs-down me-3"></i>
-                      <p class="m-0">Fake</p>
-                    </div>
-                    <!-- real icon -->
-                    <div class="
-                            dropdown-item
-                            rounded
-                            d-flex
-                            justify-content-center
-                            align-items-center
-                            pointer
-                            text-muted
-                            p-1
-                          ">
-                      <i class="fa-solid fa-share me-3"></i>
-                      <p class="m-0">Share</p>
-                    </div>
                     <!-- comment icon -->
                     <div class="
                             dropdown-item
@@ -446,91 +349,9 @@ global $profilePost;
                             pointer
                             text-muted
                             p-1
-                          " data-bs-toggle="collapse" data-bs-target="#collapsePost1" aria-expanded="false" aria-controls="collapsePost1">
+                          " data-bs-toggle="modal" data-bs-target="#postview<?=$post['post_id']?>" aria-expanded="false" aria-controls="collapsePost1">
                       <i class="fas fa-comment-alt me-3"></i>
                       <p class="m-0">Comment</p>
-                    </div>
-                  </div>
-                  <!-- comment expand -->
-                  <div id="collapsePost1" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                    <hr />
-                    <div class="accordion-body">
-                      <!-- comment 1 -->
-                      <div class="d-flex align-items-center my-1">
-                        <!-- avatar -->
-                        <img src="https://source.unsplash.com/collection/happy-people" alt="avatar" class="rounded-circle me-2" style="
-                                width: 38px;
-                                height: 38px;
-                                object-fit: cover;
-                              " />
-                        <!-- comment text -->
-                        <div class="p-3 rounded comment__input w-100">
-                          <!-- comment menu of author -->
-                          <div class="d-flex justify-content-end">
-                            <!-- icon -->
-                            <i class="fas fa-ellipsis-h text-blue pointer" id="post1CommentMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                            <!-- menu -->
-                            <ul class="dropdown-menu border-0 shadow" aria-labelledby="post1CommentMenuButton">
-                              <li class="d-flex align-items-center">
-                                <a class="
-                                        dropdown-item
-                                        d-flex
-                                        justify-content-around
-                                        align-items-center
-                                        fs-7
-                                      " href="#">
-                                  Edit Comment</a>
-                              </li>
-                              <li class="d-flex align-items-center">
-                                <a class="
-                                        dropdown-item
-                                        d-flex
-                                        justify-content-around
-                                        align-items-center
-                                        fs-7
-                                      " href="#">
-                                  Delete Comment</a>
-                              </li>
-                            </ul>
-                          </div>
-                          <p class="fw-bold m-0">Rohit</p>
-                          <p class="m-0 fs-7 bg-gray p-2 rounded">
-                            Lorem ipsum dolor sit amet, consectetur
-                            adipiscing elit.
-                          </p>
-                        </div>
-                      </div>
-                      <!-- comment 2 -->
-                      <div class="d-flex align-items-center my-1">
-                        <!-- avatar -->
-                        <img src="https://source.unsplash.com/random/2" alt="avatar" class="rounded-circle me-2" style="
-                                width: 38px;
-                                height: 38px;
-                                object-fit: cover;
-                              " />
-                        <!-- comment text -->
-                        <div class="p-3 rounded comment__input w-100">
-                          <p class="fw-bold m-0">Jerry</p>
-                          <p class="m-0 fs-7 bg-gray p-2 rounded">
-                            Lorem ipsum dolor sit amet, consectetur
-                            adipiscing elit.
-                          </p>
-                        </div>
-                      </div>
-                      <!-- create comment -->
-                      <form class="d-flex my-1">
-                        <!-- avatar -->
-                        <div>
-                          <img src="https://source.unsplash.com/collection/happy-people" alt="avatar" class="rounded-circle me-2" style="
-                                  width: 38px;
-                                  height: 38px;
-                                  object-fit: cover;
-                                " />
-                        </div>
-                        <!-- input -->
-                        <input type="text" class="form-control border-0 rounded-pill bg-gray" placeholder="Write a comment" />
-                      </form>
-                      <!-- end -->
                     </div>
                   </div>
                 </div>

@@ -111,7 +111,7 @@ global $user;
             <div class="col d-flex align-items-center justify-content-end">
                 <!-- avatar -->
                 <a href="?u=<?=$user['f_name']?>_<?=$user['l_name']?>" class="text-decoration-none text-dark">
-                    <div class="d-none d-xl-flex align-items-center justify-content-end cursor-pointer me-2 px-2 py-1 rounded-pill user ">
+                    <div class="d-none d-xl-flex align-items-center justify-content-end cursor-pointer me-2 px-2 py-1 rounded-pill user <?php if (isset($_GET['u'])) {echo "active-icon";}?>">
 
                         <!-- avatar img -->
                         <img src="assets/images/profiles/<?= $user['pfp'] ?>" class="rounded-circle me-2" style="height: 38px; width: 38px; object-fit: cover;" alt="avatar">
@@ -123,8 +123,8 @@ global $user;
                 </a>
                 <!-- home -->
                 <a href="?">
-                    <div class="d-flex align-items-center justify-content-center p-1 me-2  bg-gray-icon rounded-circle cursor-pointer active-icon" style="height: 38px; width: 38px; object-fit: cover; ">
-                        <i class="fa-solid fa-house"></i>
+                    <div class="d-flex align-items-center justify-content-center p-1 me-2 bg-gray-icon rounded-circle cursor-pointer <?php if (isset($_GET['u']) or isset($_GET['editprofile'])) { echo " text-dark";}else{echo "active-icon";}?>" style="height: 38px; width: 38px; object-fit: cover;">
+                        <i class="bi bi-house-fill"></i>
                     </div>
                 </a>
                 <!-- create -->

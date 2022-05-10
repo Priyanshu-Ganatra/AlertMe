@@ -151,12 +151,22 @@
         if ($response['status']) {
             if (createPost($_POST, $_FILES['post_img'])) {
                 header("location:../../?new_post_added"); 
+                
             }else {
                 echo "Something went wrong";
             }
         }else {
             $_SESSION['error'] = $response;
             header("location:../../"); 
+        }
+    }
+
+    if (isset($_GET['delpost'])) {
+        $post_id = $_GET['delpost'];
+        if(deletePost($post_id)){
+            header("location:{$_SERVER['HTTP_REFERER']}");
+        }else{
+            echo "Something went wrong";
         }
     }
 ?>

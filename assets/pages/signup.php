@@ -55,10 +55,8 @@
                         name="pass"
                         value="<?=showFormData('pass')?>"
                         placeholder="password"
-                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                         data-bs-toggle="tooltip"
                         data-bs-placement="bottom" 
-                        title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"
                         autocomplete="current-password"
                          
                         >

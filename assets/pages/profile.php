@@ -277,7 +277,7 @@ global $profilePost;
                               justify-content-around
                               align-items-center
                               fs-7
-                            " href="#">
+                            " href="assets/php/actions.php/?delpost=<?=$post['post_id']?>">
                     Delete Post</a>
                 </li>
               <?php

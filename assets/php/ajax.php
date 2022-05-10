@@ -105,4 +105,47 @@
     
             echo json_encode($response);            
     }    
+
+    if(isset($_GET['search'])){
+        $keyword = $_POST['keyword'];
+        $data = searchUser($keyword);
+        $users="";
+        if(count($data)>0){
+            $response['status']=true;
+            foreach($data as $fuser){
+            $fbtn='';
+            
+            $users.='<div class="d-flex justify-content-between">
+                                <div class="d-flex align-items-center p-2">
+                                    <div><img src="assets/images/profiles/'.$fuser['pfp'].'" alt="" class="rounded-circle me-2" style="width: 38px; height: 38px; object-fit: cover">
+                                    </div>
+                                    <div>&nbsp;&nbsp;</div>
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <a href="?u='.$fuser['f_name'].'_'.$fuser['l_name'].'" class="text-decoration-none text-dark"><h6 style="margin: 0px;font-size: small;">'.$fuser['f_name'].' '.$fuser['l_name'].'</h6></a>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                  '.$fbtn.'
+                                </div>
+                            </div>';
+            
+            }
+        $response['users']=$users;
+        }else{
+            $response['status']=false;
+        }
+    
+        echo json_encode($response);
+    }
+
+    if(isset($_GET['notread'])){
+   
+        if(setNotificationStatusAsRead()){
+            $response['status']=true;
+        }else{
+            $response['status']=false;
+        }
+    
+        echo json_encode($response);
+    }
 ?>

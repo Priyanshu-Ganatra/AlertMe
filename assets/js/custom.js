@@ -58,7 +58,7 @@ $('.unsubbtn').click(function() {
             if (response['status']) {
                 $(button).attr('disabled', false)
                 $(button).data('userId', 0)
-                $(button).html('<i class="bi bi-person-plus-fill me-3"></i>Subscribe')
+                $(button).html('<i class="bi bi-person-plus-fill me-3"></i> Subscribe')
                 location.reload()
 
             } else {
@@ -205,4 +205,47 @@ $('.add-comment').click(function() {
             }
         }
     });
+});
+
+var sr = false;
+$("#search").focus(function() {
+    $("#search_result").show();
+});
+
+$("#close_search").click(function() {
+    $("#search_result").hide();
+});
+
+$("#search").keyup(function() {
+    var keyword_v = $(this).val();
+
+    $.ajax({
+        url: 'assets/php/ajax.php?search',
+        method: 'post',
+        dataType: 'json',
+        data: { keyword: keyword_v },
+        success: function(response) {
+            console.log(response);
+            if (response.status) {
+                $("#sra").html(response.users);
+            } else {
+                $("#sra").html('<p class="text-center text-muted">User not found !</p>');
+            }
+        }
+    });
+
+});
+
+$("#show_not").click(function() {
+    $.ajax({
+        url: 'assets/php/ajax.php?notread',
+        method: 'post',
+        dataType: 'json',
+        success: function(response) {
+            if (response.status) {
+                $(".un-count").hide();
+            }
+        }
+    });
+
 });

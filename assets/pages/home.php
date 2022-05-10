@@ -52,9 +52,10 @@ global $posts;
 												<a class="
 													dropdown-item
 													d-flex
+													cursor-pointer
 													justify-content-around
 													align-items-center
-													fs-7" href="#">
+													fs-7" href="assets/php/actions.php/?delpost=<?=$post['post_id']?>">
 													Delete Post</a>
 											</li>
 										<?php
@@ -127,13 +128,15 @@ global $posts;
 															if (checkLikeStatus($post['post_id'])) {
 																$like_btn_display = 'none';
 																$unlike_btn_display = '';
+																$unlike_text = "Unlike";
 															} else {
 																$like_btn_display = '';
 																$unlike_btn_display = 'none';
+																$like_text = "Like";
 															}
 														?>
-														<i class="bi bi-hand-thumbs-up-fill me-3 unlike_btn" data-post-id="<?= $post['post_id'] ?>" style="display:<?= $unlike_btn_display ?>"></i>
-														<i class="bi bi-hand-thumbs-up me-3 like_btn" data-post-id="<?= $post['post_id'] ?>" style="display:<?= $like_btn_display ?>"></i>
+														<i class="bi bi-hand-thumbs-up-fill me-3 unlike_btn" data-post-id="<?= $post['post_id'] ?>" style="display:<?= $unlike_btn_display ?>"><?=" ".@$unlike_text?></i>
+														<i class="bi bi-hand-thumbs-up me-3 like_btn" data-post-id="<?= $post['post_id'] ?>" style="display:<?= $like_btn_display ?>"><?=" ".@$like_text?></i>
 													</span>
 											</div>	
 												<!-- fake icon -->
@@ -151,13 +154,15 @@ global $posts;
 													if (checkDislikeStatus($post['post_id'])) {
 														$dislike_btn_display = 'none';
 														$undislike_btn_display = '';
+														$undislike_text = "Remove dislike";
 													} else {
 														$dislike_btn_display = '';
 														$undislike_btn_display = 'none';
+														$dislike_text = "Dislike";
 													}
 												?>													
-													<i class="bi bi-hand-thumbs-down-fill me-3 undislike_btn" data-post-id="<?=$post['post_id']?>" style="display:<?= $undislike_btn_display ?>"></i>
-													<i class="bi bi-hand-thumbs-down me-3 dislike_btn" data-post-id="<?=$post['post_id']?>" style="display:<?= $dislike_btn_display ?>"></i>
+													<i class="bi bi-hand-thumbs-down-fill me-3 undislike_btn" data-post-id="<?=$post['post_id']?>" style="display:<?= $undislike_btn_display ?>"><?=" ".@$undislike_text?></i>
+													<i class="bi bi-hand-thumbs-down me-3 dislike_btn" data-post-id="<?=$post['post_id']?>" style="display:<?= $dislike_btn_display ?>"><?=" ".@$dislike_text?></i>
 												</span>	
 												</div>
 												<!-- share icon -->

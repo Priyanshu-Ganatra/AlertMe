@@ -7,11 +7,77 @@
         include("assets/pages/$page.php");
     }
 
+    function deletePost($post_id){
+        global $db;
+        $user_id = $_SESSION['userdata']['user_id'];
+        $dellike = "DELETE FROM likes WHERE post_id=$post_id && user_id=$user_id";
+        mysqli_query($db, $dellike);
+        $delcom = "DELETE FROM comments WHERE post_id=$post_id && user_id=$user_id";
+        mysqli_query($db, $delcom);
+        $not = "UPDATE notifications SET read_status=2 WHERE post_id=$post_id && to_user_id=$user_id";
+        mysqli_query($db, $not);
+    
+        $query = "DELETE FROM posts WHERE post_id=$post_id";
+        return mysqli_query($db, $query);
+    }
+
+    //for getting post
+    function getPosterId($post_id){
+        global $db;
+        $query = "SELECT user_id FROM posts WHERE post_id=$post_id";
+        $run = mysqli_query($db,$query);
+        return mysqli_fetch_assoc($run)['user_id'];
+
+    }
+
+    //function for creating notifications
+    function createNotification($from_user_id,$to_user_id,$msg,$post_id=0){
+        global $db;
+        $query="INSERT INTO notifications(from_user_id,to_user_id,message,post_id) VALUES($from_user_id,$to_user_id,'$msg',$post_id)";
+        mysqli_query($db,$query);    
+    }
+
+    //get notifications
+    function getNotifications(){
+        global $db;
+        $cu_user_id = $_SESSION['userdata']['user_id'];
+        $query="SELECT * FROM notifications WHERE to_user_id=$cu_user_id ORDER BY id DESC";
+        $run = mysqli_query($db,$query);
+        return mysqli_fetch_all($run,true);
+    }
+
+    // for getting unread notifications count
+    function getUnreadNotificationsCount(){
+        $cu_user_id = $_SESSION['userdata']['user_id'];
+        global $db;
+        $query="SELECT count(*) as row FROM notifications WHERE to_user_id = $cu_user_id && read_status=0 ORDER BY id DESC";
+        $run = mysqli_query($db,$query);
+        return mysqli_fetch_assoc($run)['row'];
+    }
+
+    function setNotificationStatusAsRead(){
+    $cu_user_id = $_SESSION['userdata']['user_id'];
+       global $db;
+       $query="UPDATE notifications SET read_status=1 WHERE to_user_id=$cu_user_id";
+       return mysqli_query($db,$query);
+    }    
+
+    //for searching the users
+    function searchUser($keyword){
+    global $db;
+    $query = "SELECT * FROM users WHERE f_name LIKE '%".$keyword."%' || l_name LIKE '%".$keyword."%' LIMIT 5";
+    $run = mysqli_query($db,$query);
+    return mysqli_fetch_all($run,true);
+
+    }
+
     // function for subscribing the user
     function subscribeUser($user_id){
         global $db;
         $current_user = $_SESSION['userdata']['user_id'];
         $query = "INSERT INTO subscribers_list(subscriber_id,user_id) VALUES($current_user, $user_id)";
+
+        createNotification($current_user,$user_id,"subscribed you!");
         return mysqli_query($db, $query);
         
     }
@@ -39,6 +105,12 @@
         global $db;
         $current_user = $_SESSION['userdata']['user_id'];
         $query = "INSERT INTO likes(post_id,user_id) VALUES($post_id, $current_user)";
+
+        $poster_id = getPosterId($post_id);
+        if($poster_id!=$current_user){
+            createNotification($current_user,$poster_id,"liked your post!",$post_id);
+        }
+
         return mysqli_query($db, $query);
     }
 
@@ -56,6 +128,11 @@
         $comment = mysqli_real_escape_string($db, trim($comment));
         $current_user = $_SESSION['userdata']['user_id'];
         $query = "INSERT INTO comments(user_id,post_id,comment) VALUES($current_user, $post_id, '$comment')";
+        $poster_id = getPosterId($post_id);
+
+        if($poster_id!=$current_user){
+            createNotification($current_user,$poster_id,"commented on your post",$post_id);
+        }
         return mysqli_query($db, $query);
     }
 
@@ -99,6 +176,13 @@
         return mysqli_query($db, $query);
     }
 
+    // function for deleting a post
+    function delpost($post_id){
+        global $db;
+        $query = "DELETE FROM posts WHERE post_id = $post_id";
+        return mysqli_query($db, $query);
+    }
+
     // function for unsubscribing the user
     function unSubscribeUser($user_id){
         global $db;
@@ -110,7 +194,7 @@
     // for getting subscribers count
     function getSubscribers($user_id){
         global $db;
-        $query = "SELECT * FROM subscribers_list WHERE user_id = '$user_id'";
+        $query = "SELECT * FROM subscribers_list WHERE user_id = $user_id";
         $run = mysqli_query($db, $query);
         return mysqli_fetch_all($run, true);
     }
@@ -456,7 +540,19 @@
     
         $query = "INSERT INTO `posts` (user_id, post_header, post_location, images, post_city)";
         $query .= "VALUES ($user_id, '$post_text', '$post_location', '$image_name', '$post_city')";
-        return mysqli_query($db, $query);
+        $upload_success = mysqli_query($db, $query);
+        $query2 = "SELECT post_id FROM posts WHERE user_id = $user_id AND post_header = '$post_text' AND images = '$image_name' AND post_city = '$post_city'";
+        $run = mysqli_query($db, $query2);
+        $ary = mysqli_fetch_assoc($run);
+        $post_id = $ary['post_id'];
+        $poster_id = $_SESSION['userdata']['user_id'];
+        $subs = getSubscribers($poster_id);
+        if (count($subs) > 0) {
+            foreach ($subs as $sub) {
+                createNotification($poster_id, $sub['subscriber_id'], "uploaded a post!", $post_id);
+            }        
+        }
+        return $upload_success;
     }
-
+     
 ?>

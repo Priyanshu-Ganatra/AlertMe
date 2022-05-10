@@ -9,6 +9,7 @@
     }
     if (isset($_SESSION['Auth'])) {
         $user = getUser($_SESSION['userdata']['user_id']); // getting real-time user data
+        $_SESSION['user'] = $user;
         $posts = getPosts();
     }
 

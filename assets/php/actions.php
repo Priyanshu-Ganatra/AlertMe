@@ -149,7 +149,7 @@
         $response = validatePostImage($_FILES['post_img']);
 
         if ($response['status']) {
-            if (createPost($_POST, $_FILES['post_img'])) {
+            if (createPost($_POST, $_FILES['post_img'], $_SESSION['user']['city'])) {
                 header("location:../../?new_post_added"); 
                 
             }else {

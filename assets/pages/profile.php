@@ -10,9 +10,6 @@ global $profilePost;
   <!-- profile  -->
   <div class="container-fluid ">
     <div class="row d-flex justify-content-center align-items-center">
-
-
-
       <!-- post section -->
 
       <div class="col-12 col-lg-6 pb-5">

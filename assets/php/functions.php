@@ -384,8 +384,9 @@
     // for getting posts by user id
     function getPostsById($user_id){ 
         global $db;
-        $city = $_SESSION['userdata']['city'];
-        $query = "SELECT * FROM posts WHERE user_id = '$user_id' ORDER BY post_id";
+        global $user;
+        $city = $user['city'];
+        $query = "SELECT * FROM posts WHERE user_id = '$user_id' AND post_city = '$city' ORDER BY post_id";
         $run = mysqli_query($db, $query);
         return mysqli_fetch_all($run, true);
     }  
@@ -528,10 +529,10 @@
     }
 
     // for creating new post
-    function createPost($text, $image){
+    function createPost($text, $image, $post_city){
         global $db;
+        global $user;
         $user_id = $_SESSION['userdata']['user_id'];
-        $post_city = $_SESSION['userdata']['city'];
         $post_text = mysqli_real_escape_string($db, trim($text['post_text']));
         $post_location = mysqli_real_escape_string($db, trim($text['post_location']));
         $image_name = time().basename($image['name']);

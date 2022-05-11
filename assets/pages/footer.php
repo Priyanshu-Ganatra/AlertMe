@@ -97,7 +97,7 @@ global $user;
               <!-- text -->
               <div>
                 <div class="form-floating">
-                  <input type="text" class="form-control my-3 " id="city" name="post_text" placeholder="Select City" autocomplete="city" required>
+                  <textarea class="form-control my-3 " id="city" name="post_text" placeholder="Select City" autocomplete="city" required></textarea>
                   <label name="" for="city">Add heading for your news</label>
                 </div>
 

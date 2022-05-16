@@ -1,11 +1,13 @@
 <?php
 global $user;
 ?>
+
+
 <!-- notifications -->
 <?php
-  if (isset($_SESSION['Auth'])) {
-    ?>
-      <div class="offcanvas offcanvas-start" tabindex="-1" id="notification_sidebar" aria-labelledby="offcanvasExampleLabel">
+if (isset($_SESSION['Auth'])) {
+?>
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="notification_sidebar" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="offcanvasExampleLabel">Notifications</h5>
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -27,7 +29,7 @@ global $user;
             </div>
             <div>&nbsp;&nbsp;</div>
             <div class="d-flex flex-column justify-content-center" <?= $post ?>>
-              <a href='?u=<?= $fuser['f_name']."_".$fuser['l_name'] ?>' class="text-decoration-none text-dark">
+              <a href='?u=<?= $fuser['f_name'] . "_" . $fuser['l_name'] ?>' class="text-decoration-none text-dark">
                 <h6 style="margin: 0px;font-size: small;"><?= $fuser['f_name'] ?> <?= $fuser['l_name'] ?></h6>
               </a>
               <p style="margin:0px;font-size:small" class="<?= $not['read_status'] ? 'text-muted' : '' ?>"><?= $fuser['f_name'] ?> <?= $fuser['l_name'] ?> <?= $not['message'] ?></p>
@@ -56,11 +58,10 @@ global $user;
 
     </div>
   </div>
-</div>    
-    <?php
-  }
+  </div>
+<?php
+}
 ?>
-
 
 <!-- create post modal -->
 <div class="modal fade" id="addpost" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
@@ -135,7 +136,9 @@ global $user;
     </div>
   </div>
 </div>
-    
+
+
+
 </body>
 
 <!-- JavaScript bootstrap -->

@@ -28,7 +28,31 @@ if(isset($_GET['block_user'])){
     echo json_encode($response);
 }
 
+if(isset($_GET['verify_account'])){
+   
+    if(verifyUserAccountByAdmin($_POST['user_id'])){
+    
+        $response['status']=true;
 
+    }else{
+        $response['status']=false;
+    }
+
+    echo json_encode($response);
+}
+
+if(isset($_GET['unverify_account'])){
+   
+    if(UnVerifyUserAccountByAdmin($_POST['user_id'])){
+    
+        $response['status']=true;
+
+    }else{
+        $response['status']=false;
+    }
+
+    echo json_encode($response);
+}
 
 if(isset($_GET['unblock_user'])){
    

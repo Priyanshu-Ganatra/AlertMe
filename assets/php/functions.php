@@ -208,12 +208,12 @@
     }
     
     // function for showing errors
-    function showError($field){
+    function showError($field, $color = "danger"){
         if (isset($_SESSION['error'])) { // for example $_SESSION['error'] can look like: ['msg'=>"Age isn't given!", 'status'=>false, 'field'=>'age']
             $error = $_SESSION['error'];
             if (isset($error['field']) && $field == $error['field']) { // we are checking if $error['field'] is set becoz at the end of index.php we are unsetting $_SESSION['error']
                 ?>
-                    <div class="alert alert-danger my-2" role="alert">  
+                    <div class="alert alert-<?=$color?> my-2" role="alert">  
                     <?=$error['msg']?>
                     </div>
                 <?php
@@ -309,7 +309,7 @@
     function validateLoginForm($form_data){ // $form_data is nothing but $_POST associative array
         $response = [];
         $response['status'] = true;
-        $blank = false; // to check if form is filled or not, by default it 
+        $blank = false; // to check if form is filled or not
         if (!$form_data['pass']) {
             $response['msg'] = "Password isn't given!";
             $response['status'] = false;

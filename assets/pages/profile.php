@@ -29,7 +29,13 @@ global $profilePost;
               <!-- name -->
               <div class="d-flex align-items-center justify-content-center">
                 <div class="d-flex">
-                  <h3><?= $profile['f_name'] ?> <?= $profile['l_name'] ?></h3>
+                  <h3><?= $profile['f_name'] ?> <?= $profile['l_name'] ?><?php
+												if ($profile['verified'] == 1) {
+												?>
+													<i class="bi bi-patch-check-fill mx-2 text-primary"></i>
+												<?php
+												}
+											?>	</h3>
                 </div>
               </div>
 

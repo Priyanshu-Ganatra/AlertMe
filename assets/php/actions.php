@@ -1,6 +1,7 @@
 <?php
     require_once 'functions.php';
     require_once 'send_code.php';
+    
     // This file runs only when the submit button is clicked i.e. the form tag's action attribute contains this file's URL
     // For managing signup
     if (isset($_GET['signup'])) { // if the URL contains localhost/CPE/?signup
@@ -169,4 +170,30 @@
             echo "Something went wrong";
         }
     }
+
+    // for reporting a post
+    if (isset($_GET['reportPost'])) {
+        $post_id = $_SESSION['report_postId']; 
+        $post_header = $_SESSION['report_postHeader'];
+        $user_id = $_SESSION['user']['user_id'];  
+        $user_email = $_POST['user_email'];
+        $user_name = $_POST['user_name'];
+        $uploader_name = $_POST['uploader_name'];
+
+        foreach ($_POST['report_options'] as $option) {
+            $report_reason = $option;
+        }
+
+        $message = "I (user id: '$user_id') have reported a post uploaded by \"$uploader_name\" with post id - '$post_id' whose header is - \"$post_header\" which I gave a flag of - '$report_reason'.";
+
+        if (!empty($_POST['report_description'])) {
+            $message .= " I further added this description about the report - \"".$_POST['report_description']."\"";
+        }
+
+        if(reportPost($user_email, $message, $user_name)){
+            header("location: ../../");
+        }else{
+            echo "Something went wrong";
+        }
+    }    
 ?>

@@ -9,7 +9,7 @@ if (isset($_SESSION['admin_auth'])) header('Location:../');
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin Panel Log-in - AlertMe</title>
+  <title>Admin Panel Sign-up - AlertMe</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -31,9 +31,15 @@ if (isset($_SESSION['admin_auth'])) header('Location:../');
     <!-- /.login-logo -->
     <div class="card">
       <div class="card-body login-card-body">
-        <p class="login-box-msg">Login panel for admins only</p>
-        <?= showError('useraccess') ?>
-        <form action="../php/admin_actions.php?login" method="post">
+        <p class="login-box-msg">Sign-up panel for admins only</p>
+        <form action="../php/admin_actions.php?signup" method="post">
+        <div class="input-group mb-3">
+            <input type="text" name="name" class="form-control" placeholder="Full name" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+              </div>
+            </div>
+          </div>
           <div class="input-group mb-3">
             <input type="email" name="email" class="form-control" placeholder="Email" required>
             <div class="input-group-append">
@@ -53,7 +59,7 @@ if (isset($_SESSION['admin_auth'])) header('Location:../');
           <div class="row">
             <!-- /.col -->
             <div class="col-4">
-              <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+              <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
             </div>
             <!-- /.col -->
           </div>
@@ -61,7 +67,7 @@ if (isset($_SESSION['admin_auth'])) header('Location:../');
         <br>
         <div class="row">
           <div class="col-4">
-            <a href="signup.php"><button class="btn btn-primary btn-block">Sign Up</button></a> 
+            <a href="login.php"><button class="btn btn-primary btn-block">Sign in</button></a> 
           </div>
         </div>
 

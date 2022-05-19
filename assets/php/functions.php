@@ -65,7 +65,8 @@
     //for searching the users
     function searchUser($keyword){
     global $db;
-    $query = "SELECT * FROM users WHERE f_name LIKE '%".$keyword."%' || l_name LIKE '%".$keyword."%' LIMIT 5";
+    $current_city = $_SESSION['user']['city'];
+    $query = "SELECT * FROM users WHERE  city = '$current_city' AND (f_name LIKE '%".$keyword."%' || l_name LIKE '%".$keyword."%') LIMIT 5";
     $run = mysqli_query($db,$query);
     return mysqli_fetch_all($run,true);
 

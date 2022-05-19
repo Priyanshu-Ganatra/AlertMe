@@ -14,34 +14,40 @@ global $user;
             </div>
             <!-- search -->
             <div class="col d-flex align-items-center">
-            <form class="d-flex" id="searchform">
-                <input class="form-control me-2" type="search" id="search" placeholder="Looking for someone?"
-                    aria-label="Search" autocomplete="off">
-                <div class="bg-white text-end rounded border shadow py-3 px-4 mt-5" style="display:none;position:absolute;z-index:+99;" id="search_result" data-bs-auto-close="true">
-                    <button type="button" class="btn-close" aria-label="Close" id="close_search"></button>
-                    <div id="sra" class="text-start">
-                        <p class="text-center text-muted">Enter first and last name </p>
+                <form class="d-flex" id="searchform">
+                    <input class="form-control me-2" type="search" id="search" placeholder="Looking for someone?" aria-label="Search" autocomplete="off">
+                    <div class="bg-white text-end rounded border shadow py-3 px-4 mt-5" style="display:none;position:absolute;z-index:+99;" id="search_result" data-bs-auto-close="true">
+                        <button type="button" class="btn-close" aria-label="Close" id="close_search"></button>
+                        <div id="sra" class="text-start">
+                            <p class="text-center text-muted">Enter first or last name </p>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
             </div>
             <!-- menus -->
             <div class="col d-flex align-items-center justify-content-end">
                 <!-- avatar -->
-                <a href="?u=<?=$user['f_name']?>_<?=$user['l_name']?>" class="text-decoration-none text-dark">
-                    <div class="d-none d-xl-flex align-items-center justify-content-end cursor-pointer me-2 px-2 py-1 rounded-pill user <?php global $user; if (isset($_GET['u']) and ($_GET['u'] == $user['f_name'].'_'.$user['l_name'])) {echo "active-icon";}?>">
+                <a href="?u=<?= $user['f_name'] ?>_<?= $user['l_name'] ?>" class="text-decoration-none text-dark">
+                    <div class="d-none d-xl-flex align-items-center justify-content-end cursor-pointer me-2 px-2 py-1 rounded-pill user <?php global $user;
+                                                                                                                                        if (isset($_GET['u']) and ($_GET['u'] == $user['f_name'] . '_' . $user['l_name'])) {
+                                                                                                                                            echo "active-icon";
+                                                                                                                                        } ?>">
 
                         <!-- avatar img -->
                         <img src="assets/images/profiles/<?= $user['pfp'] ?>" class="rounded-circle me-2" style="height: 38px; width: 38px; object-fit: cover;" alt="avatar">
 
                         <p class="m-0 me-2"><?= $user['f_name'] . ' ' . $user['l_name']; ?>
-                        </p>    
+                        </p>
 
                     </div>
                 </a>
                 <!-- home -->
                 <a href="?">
-                    <div class="d-flex align-items-center justify-content-center p-1 me-2 bg-gray-icon rounded-circle cursor-pointer <?php if (isset($_GET['u']) or isset($_GET['editprofile'])) { echo " text-dark";}else{echo "active-icon";}?>" style="height: 38px; width: 38px; object-fit: cover;">
+                    <div class="d-flex align-items-center justify-content-center p-1 me-2 bg-gray-icon rounded-circle cursor-pointer <?php if (isset($_GET['u']) or isset($_GET['editprofile'])) {
+                                                                                                                                            echo " text-dark";
+                                                                                                                                        } else {
+                                                                                                                                            echo "active-icon";
+                                                                                                                                        } ?>" style="height: 38px; width: 38px; object-fit: cover;">
                         <i class="bi bi-house-fill"></i>
                     </div>
                 </a>
@@ -52,25 +58,25 @@ global $user;
                 </div>
 
                 <div class="d-flex align-items-center justify-content-center p-1 me-2 bg-gray-icon rounded-circle cursor-pointer" style="height: 38px; width: 38px; object-fit: cover;" type="button">
-                <?php
-                if (getUnreadNotificationsCount() > 0) {
-                ?>
-                    <!-- notification -->
-                    <a id="show_not" class="text-dark" data-bs-toggle="offcanvas" href="#notification_sidebar" role="button" aria-controls="offcanvasExample">
-                        <i class="fa-solid fa-bell"></i>
-                        <span class="un-count position-absolute start-10 translate-middle badge p-1 rounded-pill bg-danger">
-                            <small><?= getUnreadNotificationsCount() ?></small>
-                        </span>
-                    </a>
-                <?php   
-                }else {
+                    <?php
+                    if (getUnreadNotificationsCount() > 0) {
+                    ?>
+                        <!-- notification -->
+                        <a id="show_not" class="text-dark" data-bs-toggle="offcanvas" href="#notification_sidebar" role="button" aria-controls="offcanvasExample">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="un-count position-absolute start-10 translate-middle badge p-1 rounded-pill bg-danger">
+                                <small><?= getUnreadNotificationsCount() ?></small>
+                            </span>
+                        </a>
+                    <?php
+                    } else {
                     ?>
                         <a class="text-dark nav-link" data-bs-toggle="offcanvas" href="#notification_sidebar" role="button" aria-controls="offcanvasExample">
                             <i class="fa-solid fa-bell"></i>
                         </a>
                     <?php
-                }
-                ?>                    
+                    }
+                    ?>
                 </div>
 
 
@@ -85,90 +91,6 @@ global $user;
 
 
 
-
-
-                    <!-- mute notification -->
-                    <li class="dropdown-item p-1 my-3 rounded" type="button">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a href="./index.html" class="d-flex text-decoration-none text-dark">
-                                    <i class="fa-solid fa-bell-slash bg-gray p-2 rounded-circle"></i>
-
-                                    <div class="
-                      ms-3
-                      d-flex
-                      justify-content-between
-                      align-items-center
-                      w-100
-                    ">
-                                        <p class="m-0">Mute notifications</p>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <!-- account verification -->
-                    <li class="dropdown-item p-1 my-3 rounded" type="button">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <div class="d-flex" data-bs-toggle="dropdown">
-                                    <i class="bi bi-person-check-fill bg-gray p-2 rounded-circle"></i>
-                                    <!-- <i class="bi bi-person-check-fill"></i> -->
-
-
-                                    <div class="
-                        ms-3
-                        d-flex
-                        justify-content-between
-                        align-items-center
-                        w-100
-                      ">
-                                        <p class="m-0">Account verification</p>
-                                        <i class="fas fa-chevron-right"></i>
-                                    </div>
-                                </div>
-                                <!-- nested menu -->
-                                <ul class="dropdown-menu">
-                                    <!-- VIP verification -->
-                                    <li>
-                                        <a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="
-                            rounded-circle
-                            p-1
-                            bg-gray
-                            d-flex
-                            align-items-center
-                            justify-content-center
-                            me-2
-                          " style="width: 38px; height: 38px">
-                                                <i class="bi bi-patch-check-fill"></i>
-                                            </div>
-                                            <p class="m-0">VIP account verification</p>
-                                        </a>
-                                    </li>
-                                    <!-- simple verification -->
-                                    <li>
-                                        <a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="
-                            rounded-circle
-                            p-1
-                            bg-gray
-                            d-flex
-                            align-items-center
-                            justify-content-center
-                            me-2
-                          " style="width: 38px; height: 38px">
-                                                <i class="bi bi-patch-check"></i>
-                                            </div>
-                                            <p class="m-0">Simple verification</p>
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
 
                     <!-- logout -->
                     <li class="dropdown-item p-1 my-3 rounded" type="button">

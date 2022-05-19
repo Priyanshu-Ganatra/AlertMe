@@ -1,19 +1,6 @@
 <?php
 require_once($function_url ?? '../../assets/php/functions.php');
 
-//for adding the user
-function addAdminUser($login_data)
-{
-    global $db;
-    $fullName = $login_data['name'];
-    $email = $login_data['email'];
-    $password = $login_data['password'];
-
-    $query = "INSERT INTO admins(full_name, email, password) VALUE('$fullName','$email','$password')";
-    $run = mysqli_query($db, $query);
-    return $run;
-}
-
 //for checking the user
 function checkAdminUser($login_data)
 {

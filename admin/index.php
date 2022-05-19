@@ -10,7 +10,7 @@ $admin = getAdmin($_SESSION['admin_auth']);
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AlertMe - Admin Dashboard</title>
+  <title>AlertMe - Admins</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -253,7 +253,7 @@ $admin = getAdmin($_SESSION['admin_auth']);
             ?>
               <div class="card w-100">
                 <div class="card-header">
-                  <h3 class="card-title">Users List</h3>
+                  <h3 class="card-title">Users List (New Users First)</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">

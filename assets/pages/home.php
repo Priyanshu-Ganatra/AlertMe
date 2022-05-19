@@ -165,18 +165,6 @@ global $posts;
 														<i class="bi bi-hand-thumbs-down me-3 dislike_btn" data-post-id="<?= $post['post_id'] ?>" style="display:<?= $dislike_btn_display ?>"><?= " " . @$dislike_text ?></i>
 													</span>
 												</div>
-												<!-- share icon -->
-												<div class="dropdown-item
-													rounded
-													d-flex
-													justify-content-center
-													align-items-center
-													cursor-pointer
-													text-muted
-													p-1">
-													<i class="fa-solid fa-share me-3"></i>
-													<p class="m-0">Share</p>
-												</div>
 												<!-- comment icon -->
 												<div class="dropdown-item
 												rounded

@@ -184,10 +184,10 @@
             $report_reason = $option;
         }
 
-        $message = "I (user id: '$user_id') have reported a post uploaded by \"$uploader_name\" with post id - '$post_id' whose header is - \"$post_header\" which I gave a flag of - '$report_reason'.";
+        $message = "I (user id: <b>'$user_id'</b>) have reported a post uploaded by <b>\"$uploader_name\"</b> with post id - <b>'$post_id'</b> whose header is - <b>\"$post_header\"</b> which I gave a flag of - <b>'$report_reason'.</b>";
 
         if (!empty($_POST['report_description'])) {
-            $message .= " I further added this description about the report - \"".$_POST['report_description']."\"";
+            $message .= " I further added this description about the report - <b>\"".$_POST['report_description']."\"</b>";
         }
 
         if(reportPost($user_email, $message, $user_name)){

@@ -229,7 +229,7 @@ $("#search").keyup(function() {
             if (response.status) {
                 $("#sra").html(response.users);
             } else {
-                $("#sra").html('<p class="text-center text-muted">User not found !</p>');
+                $("#sra").html('<p class="text-center text-muted">No users found.</p>');
             }
         }
     });

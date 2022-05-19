@@ -91,6 +91,18 @@ global $user;
                             <textarea cols="30" name="about" rows="2" placeholder="Tell something about yourself..." class="form-control border-1 "><?=$user['about']?></textarea>
                         </div>
 
+                        <!-- current city -->
+                        <div class="form-floating">
+                            <input
+                            value="<?=$user['city']?>"
+                            min="18" 
+                            max="100"
+                            class="form-control my-3"
+                            disabled                       
+                            >
+                            <label for="ageLabel">Current city</label>
+                        </div>    
+
                         <!-- city -->
                         <div class="form-floating">
                             <select class="form-select" name="city" id="citySelect" aria-label="Floating label select example">
@@ -98,7 +110,7 @@ global $user;
                                 <option value="Amaravati">Amaravati</option>
                                 <option value="Pune">Pune</option>
                             </select>
-                            <label for="citySelect">Select your city</label>
+                            <label for="citySelect">Change your city</label>
                         </div>
                         <br>
                         
@@ -106,7 +118,7 @@ global $user;
                         <div class="row g-2">
                             <div class="col-md">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" name="password" placeholder="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" autocomplete="current-password">
+                                    <input type="password" class="form-control" name="password" placeholder="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" autocomplete="current-password">
                                     <label name="dsdjj" for="passwordLabel">New Password</label>
                                 </div>
                             </div> 
@@ -116,6 +128,7 @@ global $user;
 
                     <!-- end -->
                 </div>
+                <br>
                 <input type="submit" class="btn btn-primary w-100">
 
             </form>

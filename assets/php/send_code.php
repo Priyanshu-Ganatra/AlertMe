@@ -20,7 +20,7 @@ function sendCode($email, $subject, $code){
         $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
         $mail->Username   = 'cpetest3008@gmail.com';                     //SMTP username
-        $mail->Password   = 'cpetest@1234';                               //SMTP password
+        $mail->Password   = 'Priyanshu@3008';                               //SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
         $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
     
@@ -48,7 +48,7 @@ function reportPost($email, $message, $username){
         $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
         $mail->Username   = 'cpetest3008@gmail.com';                     //SMTP username
-        $mail->Password   = 'cpetest@1234';                               //SMTP password
+        $mail->Password   = 'Priyanshu@3008';                               //SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
         $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
     
@@ -59,7 +59,7 @@ function reportPost($email, $message, $username){
         //Content
         $mail->isHTML(true);                     //Set email format to HTML
         $mail->Subject = "A post has been reported by $username!";
-        $mail->Body    = "<b>$message<b>";
+        $mail->Body    = "$message";
     
         $mail->send();
         return true;

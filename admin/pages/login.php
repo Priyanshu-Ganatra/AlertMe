@@ -59,11 +59,6 @@ if (isset($_SESSION['admin_auth'])) header('Location:../');
           </div>
         </form>
         <br>
-        <div class="row">
-          <div class="col-4">
-            <a href="signup.php"><button class="btn btn-primary btn-block">Sign Up</button></a> 
-          </div>
-        </div>
 
       </div>
       <!-- /.login-card-body -->

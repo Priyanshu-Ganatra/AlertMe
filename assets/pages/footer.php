@@ -138,7 +138,6 @@ if (isset($_SESSION['Auth'])) {
 </div>
 
 
-
 </body>
 
 <!-- JavaScript bootstrap -->

@@ -41,7 +41,7 @@ CREATE TABLE `admins` (
 -- Table structure for table `likes`
 --
 
-CREATE TABLE `likes` (
+CREATE TABLE `likes_updated` (
   `id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
@@ -93,7 +93,7 @@ INSERT INTO `posts` (`post_id`, `user_id`, `post_header`, `post_location`, `has_
 -- Table structure for table `subscribers_list`
 --
 
-CREATE TABLE `subscribers_list` (
+CREATE TABLE `subscribers_list_updated` (
   `id` int(11) NOT NULL,
   `subscriber_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
@@ -140,9 +140,9 @@ ALTER TABLE `admins`
   ADD PRIMARY KEY (`a_id`);
 
 --
--- Indexes for table `likes`
+-- Indexes for table `likes_updated`
 --
-ALTER TABLE `likes`
+ALTER TABLE `likes_updated`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -153,9 +153,9 @@ ALTER TABLE `posts`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `subscribers_list`
+-- Indexes for table `subscribers_list_updated`
 --
-ALTER TABLE `subscribers_list`
+ALTER TABLE `subscribers_list_updated`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -175,9 +175,9 @@ ALTER TABLE `admins`
   MODIFY `a_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `likes`
+-- AUTO_INCREMENT for table `likes_updated`
 --
-ALTER TABLE `likes`
+ALTER TABLE `likes_updated`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
@@ -187,9 +187,9 @@ ALTER TABLE `posts`
   MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT for table `subscribers_list`
+-- AUTO_INCREMENT for table `subscribers_list_updated`
 --
-ALTER TABLE `subscribers_list`
+ALTER TABLE `subscribers_list_updated`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --

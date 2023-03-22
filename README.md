@@ -13,7 +13,9 @@ About the project:
 
 5. Admins can block users, login as a user, verify(✔) accounts, view website analytics.
 
-6. AlertMe is supposed to be a dedicated platform for all the residents of particular cities/villages who share news.
+6. OTP verification is present for registration and for changing passwords.
+
+7. AlertMe is supposed to be a dedicated platform for all the residents of particular cities/villages who share news.
 
 
 Technologies used: HTML, CSS, JS, Bootstrap, AJAX, jQuery, php, MySQL.

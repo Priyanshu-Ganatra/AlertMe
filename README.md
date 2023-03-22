@@ -3,7 +3,7 @@ AlertMe is basically a social media website dedicated to sharing news within par
 
 About the project:
 
-1. It asks users to enter their city/village name while registering (signing-up) for the website along with some basic personal details, and takes them to the homepage of all the posts that are made within that city. If the user uploads a news post, it'll be posted in only the particular city which they may have selected while regitering.
+1. It asks users to enter their city/village name while registering (signing-up) for the website along with some basic personal details, and takes them to the homepage of all the posts that are made within that city. If the user uploads a news post, it'll be posted in the current selected city uniquely (current city can be changed via edit profile page).
 
 2. The website is supervised by admin(s) to make sure that no other content except a particular city's news is posted on the website. Users can report inaprropriate contents if they find any.
 
